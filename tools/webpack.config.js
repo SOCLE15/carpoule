@@ -20,7 +20,12 @@ const isVerbose = process.argv.includes('--verbose');
 const isAnalyze =
   process.argv.includes('--analyze') || process.argv.includes('--analyse');
 
+// Hard choice here...
+// You can enforce this for test environments :-)
+const REACT_INTL_ENFORCE_DESCRIPTIONS = false;
+
 const reScript = /\.jsx?$/;
+const reGraphql = /\.(graphql|gql)$/;
 const reStyle = /\.(css|less|scss|sss)$/;
 const reImage = /\.(bmp|gif|jpe?g|png|svg)$/;
 const staticAssetName = isDebug
@@ -101,8 +106,26 @@ const config = {
             // Adds __self attribute to JSX which React will use for some warnings
             // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx-self
             ...(isDebug ? ['transform-react-jsx-self'] : []),
+            [
+              'react-intl',
+              {
+                messagesDir: path.resolve(
+                  __dirname,
+                  '../build/messages/extracted',
+                ),
+                extractSourceLocation: true,
+                enforceDescriptions: REACT_INTL_ENFORCE_DESCRIPTIONS,
+              },
+            ],
           ],
         },
+      },
+
+      // Rules for GraphQL
+      {
+        test: reGraphql,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader',
       },
 
       // Rules for Style Sheets
@@ -227,7 +250,15 @@ const config = {
       // Return public URL for all assets unless explicitly excluded
       // DO NOT FORGET to update `exclude` list when you adding a new loader
       {
-        exclude: [reScript, reStyle, reImage, /\.json$/, /\.txt$/, /\.md$/],
+        exclude: [
+          reScript,
+          reStyle,
+          reImage,
+          reGraphql,
+          /\.json$/,
+          /\.txt$/,
+          /\.md$/,
+        ],
         loader: 'file-loader',
         options: {
           name: staticAssetName,
@@ -285,7 +316,7 @@ const clientConfig = {
   target: 'web',
 
   entry: {
-    client: ['babel-polyfill', './src/client.js'],
+    client: ['babel-polyfill', './src/clientLoader.js'],
   },
 
   plugins: [
