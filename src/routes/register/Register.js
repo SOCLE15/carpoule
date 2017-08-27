@@ -24,7 +24,48 @@ class Register extends React.Component {
           <h1>
             {this.props.title}
           </h1>
-          <p>...</p>
+          <p className={s.lead}>Sign up with your company email address</p>
+          <form method="post">
+            <div className={s.formGroup}>
+              <label className={s.label} htmlFor="usernameOrEmail">
+                Email address:
+              </label>
+              <input
+                className={s.input}
+                id="usernameOrEmail"
+                type="text"
+                name="usernameOrEmail"
+                autoFocus // eslint-disable-line jsx-a11y/no-autofocus
+              />
+            </div>
+            <div className={s.formGroup}>
+              <label className={s.label} htmlFor="password">
+                Password:
+              </label>
+              <input
+                className={s.input}
+                id="password"
+                type="password"
+                name="password"
+              />
+            </div>
+            <div className={s.formGroup}>
+              <label className={s.label} htmlFor="password">
+                Confirm your password:
+              </label>
+              <input
+                className={s.input}
+                id="password_confirmation"
+                type="password"
+                name="password_confirmation"
+              />
+            </div>
+            <div className={s.formGroup}>
+              <button className={s.button} type="submit">
+                Log in
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     );
