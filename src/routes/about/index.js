@@ -10,6 +10,7 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import Page from '../../components/Page';
+import Map from '../../components/Map';
 import about from './about.md';
 
 function action() {
@@ -19,6 +20,7 @@ function action() {
     component: (
       <Layout>
         <Page {...about} />
+        <Map />
       </Layout>
     ),
   };

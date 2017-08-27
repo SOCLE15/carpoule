@@ -38,6 +38,10 @@ module.exports = {
     googleTrackingId: process.env.GOOGLE_TRACKING_ID, // UA-XXXXX-X
   },
 
+  maps: {
+    key: process.env.MAPS_KEY || 'AIzaSyCMY-XIifxcMM0_th-S2Yh9NSdwNwuEwe0',
+  },
+
   // Authentication
   auth: {
     jwt: { secret: process.env.JWT_SECRET || 'React Starter Kit' },

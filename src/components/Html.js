@@ -57,6 +57,11 @@ class Html extends React.Component {
               dangerouslySetInnerHTML={{ __html: style.cssText }}
             />,
           )}
+          {config.maps.key &&
+            <script
+              src={`https://maps.googleapis.com/maps/api/js?key=${config.maps
+                .key}`}
+            />}
         </head>
         <body>
           <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
